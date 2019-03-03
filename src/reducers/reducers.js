@@ -1,7 +1,7 @@
 /*
 Only need a reducer for songs
 */
-import { ADD_SONG, EDIT_SONG, DELETE_SONG } from './actions'
+import { ADD_SONG, EDIT_SONG, DELETE_SONG } from '../actions'
 import { List } from 'immutable'
 
 function songs(state = List(), action){

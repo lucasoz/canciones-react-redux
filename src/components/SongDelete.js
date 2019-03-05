@@ -1,28 +1,29 @@
 import React from 'react'
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { modalDeleteHide, deleteSong } from '../actions.js'
 
 class SongDelete extends  React.Component {
 
     constructor(props){
         super(props)
         this.modalDeleteHide = this.modalDeleteHide.bind(this)
-        this.userDelete = this.userDelete.bind(this)
+        this.delete = this.delete.bind(this)
     }
     render(){
         return(
-            <Modal basic size='small' open={this.props.modal_delete.show}>
+            <Modal basic size='small' open={this.props.modal.show}>
                 <Header icon='archive' content='Alerta' />
                 <Modal.Content>
                     <p>
-                        ¿Quieres eliminar el usuario  {this.props.modal_delete.username}?
+                        Do you want to delete  {this.props.modal.name} ?
                     </p>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button basic color='red' inverted onClick={this.modalDeleteHide}>
                         <Icon name='remove' /> No
                     </Button>
-                    <Button color='green' inverted onClick={this.userDelete}>
+                    <Button color='green' inverted onClick={this.delete}>
                         <Icon name='checkmark' /> Si
                     </Button>
                 </Modal.Actions>
@@ -31,39 +32,21 @@ class SongDelete extends  React.Component {
     }
 
     modalDeleteHide(event){
-        this.props.dispatch({
-            type: 'users.modalDeleteHide',
-        })
+        this.props.dispatch(modalDeleteHide())
     }
 
-    userDelete(event){
-        this.props.dispatch({
-            type: '',
-            id: this.props.modal_delete.id
-        })
-
-        this.props.dispatch({
-            type: 'users.modalDeleteHide',
-        })
+    delete(event){
+        this.props.dispatch(deleteSong({id:this.props.modal.id}))
+        this.props.dispatch(modalDeleteHide())
     }
 }
 
 
 function mapStateToProps(state) {
-    let modal_delete;
-    if (state.users.modal && state.users.modal.list_delete){
-        modal_delete = state.users.modal.list_delete
-    }else{
-        modal_delete = {
-            show: false,
-            id: 0,
-            username: '',
-        }
-    }
-
-    return {
-        modal_delete: modal_delete
-    }
+    console.log('dawd');
+    let modal = state.modal.toJS()
+    console.log(modal);
+    return { modal: modal }
 }
 
 export default connect(mapStateToProps)(SongDelete)

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { createStore} from 'redux'
-import songs from './reducers/reducers'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { addSong } from './actions.js'
 import 'semantic-ui-css/semantic.min.css'
 import './index.css'
+import reducers from './reducers/index'
 
-let store = createStore(songs)
+let store = createStore(reducers)
 store.dispatch(addSong({
   id:1,
   name:'Encantadora',
@@ -41,8 +41,9 @@ store.dispatch(addSong({
 }))
 
 ReactDOM.render(
-<Provider store={store}>
-  <div className="center">
-    <App />
-  </div>
-</Provider> , document.getElementById('root'));
+  <Provider store={store}>
+    <div className="center">
+      <App />
+    </div>
+  </Provider>
+ , document.getElementById('root'));

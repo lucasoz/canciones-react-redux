@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { Menu, Progress } from 'semantic-ui-react'
 import Songs from './pages/Songs'
-import SongForm from './pages/SongForm'
 import NotFound from './pages/NotFound'
+import EditSong from './pages/EditSong'
+import AddSong from './pages/AddSong'
 
 class App extends Component {
   render() {
-    
+
     return (
       <BrowserRouter>
         <div className="container">
@@ -21,8 +22,9 @@ class App extends Component {
             </Menu>
             <Switch>
                 <Route exact path="/"  component={Songs}/>
-                <Route exact path="/song"  component={SongForm}></Route>
-                <Route path="/song/:id" component={SongForm} />
+                <Route exact path="/song"  component={AddSong}></Route>
+                <Route path="/song/:id" component={EditSong} />
+                <Route exact path="/not_found"  component={NotFound}></Route>
                 <Route component={NotFound}/>
             </Switch>
         </div>

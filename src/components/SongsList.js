@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 class SongsList extends React.Component {
     render(){
-      console.log(this.props.songs);
         return(
           <div>
             <Table striped>
@@ -26,7 +25,7 @@ class SongsList extends React.Component {
                     })}
                 </Table.Body>
             </Table>
-
+            <SongDelete/>
         </div>
 
         )
@@ -38,7 +37,7 @@ class SongsList extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   //pass the songs in the state of redux to the App's props
   return {
-    songs: state.toJS()
+    songs: state.songs.toJS()
   }
 }
 

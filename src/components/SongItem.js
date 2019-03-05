@@ -1,8 +1,14 @@
 import React from 'react'
 import { Table, Button } from 'semantic-ui-react'
 import {Link} from "react-router-dom";
+import { connect } from "react-redux";
+import { modalDeleteShow } from '../actions.js'
 
-export default class extends React.Component {
+class SongItem extends React.Component {
+    constructor(props){
+      super(props)
+      this.modalDeleteShow = this.modalDeleteShow.bind(this)
+    }
     render(){
       const song = this.props.song
         return(
@@ -27,4 +33,16 @@ export default class extends React.Component {
         </Table.Row>
         )
     }
+    modalDeleteShow(event){
+      const id = this.props.song.id
+      console.log(id);
+      const name = this.props.song.name
+      console.log(name);
+      this.props.dispatch(modalDeleteShow({
+         id: id,
+         name: name,
+      }))
+   }
 }
+
+export default connect()(SongItem)

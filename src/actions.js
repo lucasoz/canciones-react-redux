@@ -19,3 +19,12 @@ export const editSong = (song) => {
 export const deleteSong = (song) => {
   return { type: DELETE_SONG, song }
 }
+
+export const modalDeleteShow = (modal) => {
+  console.log(modal);
+  return { type: MODAL_DELETE_SHOW, modal }
+}
+
+export const modalDeleteHide = (modal) => {
+  return { type: MODAL_DELETE_HIDE }
+}

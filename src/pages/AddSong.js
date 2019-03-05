@@ -3,7 +3,8 @@ import { Header } from 'semantic-ui-react'
 import { Button, Form, Message } from 'semantic-ui-react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from "react-redux";
-import { addSong } from '../actions'
+import { addSong, sendingAdd, responseAdd } from '../actions'
+import * as firebase from 'firebase';
 
 class AddSong extends React.Component {
   form_type
@@ -16,7 +17,7 @@ class AddSong extends React.Component {
     return(
       <div>
         <Header size="huge">Song add</Header>
-        <Form loading={this.props.submitting} onSubmit={this.props.handleSubmit(this.formSubmit)}>
+        <Form loading={this.props.charging} onSubmit={this.props.handleSubmit(this.formSubmit)}>
             <Field name="name" component={AddSong.renderName}/>
             <Field name="artist" component={AddSong.renderArtist}/>
             <Field name="year" component={AddSong.renderYear}/>
@@ -61,14 +62,24 @@ class AddSong extends React.Component {
     )
   }
   formSubmit(values){
-    this.props.dispatch(addSong({
-      id: values.id,
-      name: values.name,
-      artist: values.artist,
-      year: values.year,
-    }))
-
-    this.props.history.goBack()
+    this.props.dispatch(sendingAdd())
+    sendingAdd()
+    firebase.database().ref('songs/').push(
+      {
+        name: values.name,
+        artist: values.artist,
+        year: values.year,
+      }
+    ).then((data) => {
+      this.props.dispatch(addSong({
+        id: values.id,
+        name: values.name,
+        artist: values.artist,
+        year: values.year,
+      }))
+      this.props.dispatch(responseAdd())
+      this.props.history.goBack()
+    });
   }
 }
 
@@ -94,8 +105,10 @@ const mapStateToProps = (state, ownProps) => {
     artist: '',
     year: 0,
   }
+  console.log(state.async.toJS().charging);
   return {
-    initialValues: songInitial
+    initialValues: songInitial,
+    charging: state.async.toJS().charging,
   }
 }
 

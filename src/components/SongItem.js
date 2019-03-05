@@ -35,9 +35,7 @@ class SongItem extends React.Component {
     }
     modalDeleteShow(event){
       const id = this.props.song.id
-      console.log(id);
       const name = this.props.song.name
-      console.log(name);
       this.props.dispatch(modalDeleteShow({
          id: id,
          name: name,

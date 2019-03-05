@@ -43,9 +43,7 @@ class SongDelete extends  React.Component {
 
 
 function mapStateToProps(state) {
-    console.log('dawd');
     let modal = state.modal.toJS()
-    console.log(modal);
     return { modal: modal }
 }
 

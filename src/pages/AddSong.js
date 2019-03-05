@@ -63,7 +63,6 @@ class AddSong extends React.Component {
   }
   formSubmit(values){
     this.props.dispatch(sendingAdd())
-    sendingAdd()
     firebase.database().ref('songs/').push(
       {
         name: values.name,
@@ -72,7 +71,7 @@ class AddSong extends React.Component {
       }
     ).then((data) => {
       this.props.dispatch(addSong({
-        id: values.id,
+        id: data.key,
         name: values.name,
         artist: values.artist,
         year: values.year,
@@ -105,7 +104,7 @@ const mapStateToProps = (state, ownProps) => {
     artist: '',
     year: 0,
   }
-  console.log(state.async.toJS().charging);
+
   return {
     initialValues: songInitial,
     charging: state.async.toJS().charging,

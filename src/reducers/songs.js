@@ -10,9 +10,8 @@ function songs(state = List(), action){
   let i
   switch (action.type) {
     case ADD_SONG:
-    const id = Number((Math.random() * 1000000).toPrecision(6))
       const new_song = {
-        id: id,
+        id: action.song.id,
         name: action.song.name,
         artist: action.song.artist,
         year: action.song.year,

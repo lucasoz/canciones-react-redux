@@ -3,7 +3,8 @@ import { Header } from 'semantic-ui-react'
 import { Button, Form, Message } from 'semantic-ui-react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from "react-redux";
-import { editSong } from '../actions'
+import { sendingAdd, editSong, responseAdd } from '../actions'
+import * as firebase from 'firebase';
 
 class EditSong extends React.Component {
   form_type
@@ -16,7 +17,7 @@ class EditSong extends React.Component {
     return(
       <div>
         <Header size="huge">Song edit</Header>
-        <Form loading={this.props.submitting} onSubmit={this.props.handleSubmit(this.formSubmit)}>
+        <Form loading={this.props.charging} onSubmit={this.props.handleSubmit(this.formSubmit)}>
             <Field name="name" component={EditSong.renderName}/>
             <Field name="artist" component={EditSong.renderArtist}/>
             <Field name="year" component={EditSong.renderYear}/>
@@ -61,14 +62,24 @@ class EditSong extends React.Component {
     )
   }
   formSubmit(values){
-    this.props.dispatch(editSong({
-      id: values.id,
-      name: values.name,
-      artist: values.artist,
-      year: values.year,
-    }))
+    this.props.dispatch(sendingAdd())
+    firebase.database().ref('songs/'+values.id).update(
+      {
+        name: values.name,
+        artist: values.artist,
+        year: values.year,
+      }
+    ).then((data) => {
+      this.props.dispatch(editSong({
+        id: values.id,
+        name: values.name,
+        artist: values.artist,
+        year: values.year,
+      }))
+      this.props.dispatch(responseAdd())
+      this.props.history.goBack()
+    });
 
-    this.props.history.goBack()
   }
 }
 
@@ -88,7 +99,7 @@ EditSong = reduxForm({
 })(EditSong);
 
 const mapStateToProps = (state, ownProps) => {
-  const id_url = Number(ownProps.match.params.id)
+  const id_url = ownProps.match.params.id
   let songInitial = {
     id: 0,
     name: '',
@@ -108,7 +119,8 @@ const mapStateToProps = (state, ownProps) => {
     ownProps.history.push('/not_found')
   }
   return {
-    initialValues: songInitial
+    initialValues: songInitial,
+    charging: state.async.toJS().charging,
   }
 }
 

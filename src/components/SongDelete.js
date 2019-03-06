@@ -14,7 +14,7 @@ class SongDelete extends  React.Component {
     render(){
         return(
             <Modal basic size='small' open={this.props.modal.show}>
-                <Header icon='archive' content='Alerta' />
+                <Header icon='archive' content='Alert' />
                 <Modal.Content>
                     <p>
                         Do you want to delete  {this.props.modal.name} ?

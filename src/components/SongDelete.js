@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { modalDeleteHide, deleteSong } from '../actions.js'
+import * as firebase from 'firebase';
 
 class SongDelete extends  React.Component {
 
@@ -24,7 +25,7 @@ class SongDelete extends  React.Component {
                         <Icon name='remove' /> No
                     </Button>
                     <Button color='green' inverted onClick={this.delete}>
-                        <Icon name='checkmark' /> Si
+                        <Icon name='checkmark' /> Yes
                     </Button>
                 </Modal.Actions>
             </Modal>
@@ -32,12 +33,13 @@ class SongDelete extends  React.Component {
     }
 
     modalDeleteHide(event){
-        this.props.dispatch(modalDeleteHide())
+      this.props.dispatch(modalDeleteHide())
     }
 
     delete(event){
         this.props.dispatch(deleteSong({id:this.props.modal.id}))
         this.props.dispatch(modalDeleteHide())
+        firebase.database().ref('songs/'+this.props.modal.id).remove()
     }
 }
 

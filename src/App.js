@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import { Menu, Progress } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import Songs from './pages/Songs'
 import NotFound from './pages/NotFound'
 import EditSong from './pages/EditSong'
@@ -32,9 +32,5 @@ class App extends Component {
     );
   }
 }
-
-// could be used while data is fetch
-// <Progress percent={100} active color="blue" size="big" />
-
 
 export default App;

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/canciones-react-redux/precache-manifest.b90c53fc2a5bf12dc03f5934069d8127.js"
+  "/canciones/precache-manifest.d6ef22e36051da1d81ac3648b01821e9.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/canciones-react-redux/index.html", {
+workbox.routing.registerNavigationRoute("/canciones/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

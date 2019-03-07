@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/canciones-react-redux/precache-manifest.c468c4ae9088b1e0a04cd6046c45a5e5.js"
+  "/canciones-react-redux/precache-manifest.4a35b76334cabda9d8b1ea8c808d2eaa.js"
 );
 
 workbox.clientsClaim();
